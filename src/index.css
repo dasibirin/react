@@ -14,6 +14,9 @@ body {
   border-radius: 14px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   text-align: center;
+  width: 100%;
+  max-width: 520px;
+  box-sizing: border-box;
 }
 
 button {
@@ -24,4 +27,124 @@ button {
   background: #2563eb;
   color: white;
   cursor: pointer;
+}
+
+/* ===== כותרת ===== */
+.header h1 {
+  margin: 0 0 6px;
+}
+
+.header-user {
+  margin: 0 0 20px;
+  color: #6b7280;
+}
+
+/* ===== טופס הוספה ===== */
+.task-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.task-form input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.task-form input:focus {
+  outline: 2px solid #93c5fd;
+  border-color: #2563eb;
+}
+
+.task-form button {
+  margin-top: 0;
+}
+
+/* ===== רשימת משימות ===== */
+.task-list h2 {
+  margin: 0 0 12px;
+  font-size: 18px;
+}
+
+.task-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+}
+
+/* הריווח בין שם המשימה לסטטוס */
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+.task-title {
+  flex: 1;
+  font-size: 15px;
+}
+
+.task-status {
+  flex-shrink: 0;
+  margin-top: 0;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 999px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer; /* מרמז שהסטטוס לחיץ */
+  opacity: 0.9;
+}
+
+.task-status:hover {
+  opacity: 1;
+  filter: brightness(0.95);
+}
+
+.task-delete {
+  flex-shrink: 0;
+  margin-top: 0;
+  padding: 4px 10px;
+  background: transparent;
+  color: #9ca3af;
+  font-size: 15px;
+  line-height: 1;
+  border-radius: 6px;
+}
+
+.task-delete:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.status-done {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-progress {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-pending {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+/* ===== סיכום ===== */
+.task-summary {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+  color: #374151;
 }
