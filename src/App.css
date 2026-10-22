@@ -21,12 +21,149 @@
   min-height: 100vh;
   background-color: #16171d;
   color: #f3f4f6;
+  padding: 28px 18px;
+  box-sizing: border-box;
 }
 
 .light {
   min-height: 100vh;
   background-color: #fff;
   color: #222;
+  padding: 28px 18px;
+  box-sizing: border-box;
+}
+
+.store,
+.contact-form {
+  width: min(100%, 960px);
+  margin: 0 auto 28px;
+}
+
+.add-product-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  align-items: end;
+  gap: 12px;
+  margin: 18px 0;
+  padding: 16px;
+  border: 1px solid #ded8e8;
+  border-radius: 14px;
+  background: #f8f5fc;
+}
+
+.add-product-form label {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.add-product-form input {
+  width: 100%;
+  min-width: 0;
+  padding: 9px 10px;
+  box-sizing: border-box;
+  border: 1px solid #cfc6dc;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.store h1 {
+  margin: 16px 0;
+  color: #6741a5;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.product-card,
+.cart-panel,
+.contact-form {
+  padding: 18px;
+  border: 1px solid #ded8e8;
+  border-radius: 14px;
+  background: #fff;
+  color: #24202b;
+  box-shadow: 0 5px 16px #21183212;
+}
+
+.product-card h2,
+.cart-panel h2 {
+  margin-top: 0;
+}
+
+.product-card button,
+.add-product-button,
+.theme-toggle,
+.contact-form button {
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: #7046ad;
+  color: white;
+  cursor: pointer;
+}
+
+.product-card button:hover,
+.add-product-button:hover,
+.theme-toggle:hover,
+.contact-form button:hover {
+  background: #58338e;
+}
+
+.product-card button:disabled,
+.contact-form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.product-card span {
+  display: inline-block;
+  min-width: 32px;
+  text-align: center;
+}
+
+.cart-panel {
+  margin: 20px 0;
+}
+
+.contact-form textarea {
+  display: block;
+  width: 100%;
+  min-height: 100px;
+  margin: 10px 0;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #cfc6dc;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.dark .product-card,
+.dark .cart-panel,
+.dark .contact-form,
+.dark .add-product-form {
+  border-color: #45404f;
+  background: #24232c;
+  color: #f3f4f6;
+}
+
+.dark .add-product-form input {
+  border-color: #5a5365;
+  background: #191820;
+  color: #f3f4f6;
+}
+
+.dark .store h1 {
+  color: #c7a9f4;
+}
+
+.theme-toggle {
+  display: block;
+  margin: 0 auto 18px;
 }
 
 .hero {

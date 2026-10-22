@@ -1,18 +1,25 @@
 import { useState } from 'react';
 import './App.css';
 
-function FavoriteButton() {
+function FavoriteButton( props ) {
   const [isFavorite, setIsFavorite] = useState(false);
 
   return (
     <button onClick={() => setIsFavorite(!isFavorite)}>
-      {isFavorite ? '❤️' : '🤍'}
+      {isFavorite
+        ? '♥ במועדפים'
+        : `♡ הוספת ${props.productName} למועדפים`}
     </button>
   );
 }
 function App2() {
   const [cart, setCart] = useState([]);
-  const products = [
+  const [showAddProductForm, setShowAddProductForm] = useState(false);
+  const [newProductName, setNewProductName] = useState('');
+  const [newProductPrice, setNewProductPrice] = useState('');
+  const [newProductDescription, setNewProductDescription] = useState('');
+  const [newProductFeatures, setNewProductFeatures] = useState('');
+  const [products, setProducts] = useState([
     {
       id: 1,
       name: 'סט כוסות',
@@ -34,7 +41,36 @@ function App2() {
       description: 'סיר איכותי עם מכסה זכוכית.',
       features: ['גודל 2 ליטר', 'לא נשרף', 'מכסה זכוכית'],
     },
-  ];
+  ]);
+
+  function addProduct() {
+    const name = newProductName.trim();
+    const price = Number(newProductPrice);
+    const description = newProductDescription.trim();
+    const features = newProductFeatures
+      .split(',')
+      .map((feature) => feature.trim())
+      .filter(Boolean);
+
+    if (!name || !description || !features.length || !Number.isFinite(price) || price <= 0) {
+      return;
+    }
+
+    const newProduct = {
+      id: Date.now(),
+      name,
+      price,
+      description,
+      features,
+    };
+
+    setProducts((previousProducts) => [...previousProducts, newProduct]);
+    setNewProductName('');
+    setNewProductPrice('');
+    setNewProductDescription('');
+    setNewProductFeatures('');
+    setShowAddProductForm(false);
+  }
 
   function addToCart(product, amount = 1) {
     setCart((prevCart) => {
@@ -58,18 +94,78 @@ function App2() {
   );
 
   return (
-    <div>
+    <div className="store">
       <h1>המוצרים שלנו</h1>
+      <button
+        className="add-product-button"
+        type="button"
+        onClick={() => setShowAddProductForm((isVisible) => !isVisible)}
+      >
+        {showAddProductForm ? 'סגירת הטופס' : 'הוספת מוצר'}
+      </button>
 
-      {products.map((product) => (
-        <ProductCard
-          key={product.id}
-          product={product}
-          addToCart={addToCart}
-        />
-      ))}
+      {showAddProductForm && <form
+        className="add-product-form"
+        onSubmit={(event) => {
+          event.preventDefault();
+          addProduct();
+        }}
+      >
+        <label>
+          שם המוצר
+          <input
+            value={newProductName}
+            onChange={(event) => setNewProductName(event.target.value)}
+            placeholder="למשל: קערת הגשה"
+            required
+          />
+        </label>
+        <label>
+          מחיר (₪)
+          <input
+            type="number"
+            min="0.01"
+            step="0.01"
+            value={newProductPrice}
+            onChange={(event) => setNewProductPrice(event.target.value)}
+            placeholder="למשל: 35"
+            required
+          />
+        </label>
+        <label>
+          תיאור
+          <input
+            value={newProductDescription}
+            onChange={(event) => setNewProductDescription(event.target.value)}
+            placeholder="תיאור קצר למוצר"
+            required
+          />
+        </label>
+        <label>
+          מאפיינים (להפריד בפסיקים)
+          <input
+            value={newProductFeatures}
+            onChange={(event) => setNewProductFeatures(event.target.value)}
+            placeholder="עמיד, מתאים למדיח, קל לניקוי"
+            required
+          />
+        </label>
+        <button className="add-product-button" type="submit">
+          הוספת מוצר
+        </button>
+      </form>}
 
-      <div>
+      <div className="product-grid">
+        {products.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            addToCart={addToCart}
+          />
+        ))}
+      </div>
+
+      <div className="cart-panel">
         <h2>העגלה שלך</h2>
         {cart.length === 0 ? (
           <p>העגלה ריקה</p>
@@ -90,8 +186,9 @@ function ProductCard({ product, addToCart }) {
   const [quantity, setQuantity] = useState(0);
 
   return (
-    <div>
+    <div className="product-card">
       <h2>{product.name}</h2>
+      <FavoriteButton productName={product.name} />
       <p>מחיר: {product.price} ₪</p>
 
       <ProductDescription
@@ -174,7 +271,7 @@ function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="contact-form" onSubmit={handleSubmit}>
       <textarea
         value={message}
         onChange={(e) => setMessage(e.target.value)}
@@ -194,7 +291,7 @@ function App() {
 
   return (
     <div className={isdark ? 'dark' : 'light'}>
-      <button type="button" onClick={() => setIdark((current) => !current)}>
+      <button className="theme-toggle" type="button" onClick={() => setIdark((current) => !current)}>
         {isdark ? '☀️' : '🌙'}
       </button>
       <App2 />
